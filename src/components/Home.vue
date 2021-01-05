@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <h4 class="h4">New User</h4>
+    <h5 class="header">Add New User</h5>
+
+    <p class="alert alert-warning" role="alert" v-if="errorStatus">
+      {{ errMsg }}
+    </p>
+
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group id="input-group-1" label="First Name:" label-for="input-1">
         <b-form-input
@@ -47,7 +52,7 @@
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger" class="reset">Reset</b-button>
     </b-form>
-    <b-card class="mt-3" header="Users" v-if="!loading">
+    <b-card class="mt-3" header="All Users" v-if="!loading">
       <ul class="list-group list-group-flush">
         <li
           class="list-group-item"
@@ -77,7 +82,8 @@ export default {
       users: [],
       loading: false,
       index: 0,
-      newUser: null,
+      errMsg: "",
+      errorStatus: false,
     };
   },
   methods: {
@@ -131,9 +137,20 @@ export default {
           return res.json();
         })
         .then((json) => {
-          this.newUser = json.data;
-          this.users.push(json.data)
-          this.clearForm();
+          if (json.message != "User added successfully.") {
+            this.errorStatus = true;
+            this.errMsg = json.message;
+            this.clearForm();
+          } else {
+            this.errorStatus = false;
+            this.users.push(json.data);
+            this.clearForm();
+            this.$toasted.show(json.message, {
+              theme: "outline",
+              position: "top-center",
+              duration: 3000,
+            });
+          }
         })
         .catch((error) => {
           this.clearForm();
@@ -161,7 +178,7 @@ export default {
 </script>
 
 <style>
-.h4 {
+.header {
   margin-bottom: 0.5em;
   color: forestgreen;
   font-weight: bold;
