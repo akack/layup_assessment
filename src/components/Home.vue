@@ -49,8 +49,13 @@
     </b-form>
     <b-card class="mt-3" header="Users" v-if="!loading">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item" v-for="user in users" :key="user._id">
-          {{ user.name }} {{ user.surname }} - {{ user.address }}
+        <li
+          class="list-group-item"
+          v-for="(user, index) in users"
+          :key="user._id"
+        >
+          {{ index + 1 }}. {{ user.name }} {{ user.surname }} -
+          {{ user.address }}
         </li>
       </ul>
       <p v-if="!users.length">No users available</p>
