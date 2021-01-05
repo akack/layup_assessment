@@ -5,7 +5,7 @@ const router = express.Router();
 //User model
 const User = require("./model/User");
 
-//Api functions -- post | get
+//Api functions, adding data to the DB -- post 
 router.post("/addUser", (req, res) => {
     let user = new User(req.body);
     User.findOne({ email: user.email }, (error, response) => {
