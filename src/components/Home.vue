@@ -132,7 +132,7 @@ export default {
         })
         .then((json) => {
           this.newUser = json.data;
-          this.fetchData();
+          this.users.push(json.data)
           this.clearForm();
         })
         .catch((error) => {
