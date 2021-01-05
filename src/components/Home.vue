@@ -2,10 +2,12 @@
   <div class="container">
     <h5 class="header">Add New User</h5>
 
+    <!-- Error alert  -->
     <p class="alert alert-warning" role="alert" v-if="errorStatus">
       {{ errMsg }}
     </p>
 
+    <!-- User input form -->
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group id="input-group-1" label="First Name:" label-for="input-1">
         <b-form-input
@@ -52,6 +54,8 @@
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger" class="reset">Reset</b-button>
     </b-form>
+
+    <!-- Users retrieved from the database -->
     <b-card class="mt-3" header="All Users" v-if="!loading">
       <ul class="list-group list-group-flush">
         <li
@@ -87,6 +91,7 @@ export default {
     };
   },
   methods: {
+    //Retrieve data from the database - calling api
     fetchData() {
       this.loading = true;
       return fetch("http://localhost:3000/api/getUsers", {
@@ -113,12 +118,15 @@ export default {
           console.log("res error: ", error);
         });
     },
+
     clearForm() {
       this.form.email = "";
       this.form.name = "";
       this.form.surname = "";
       this.form.address = "";
     },
+
+    //Storing data to the database - calling api
     onSubmit(evt) {
       evt.preventDefault();
       fetch("http://localhost:3000/api/addUser", {
