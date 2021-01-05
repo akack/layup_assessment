@@ -102,7 +102,9 @@ export default {
           this.loading = false;
         })
         .catch((error) => {
-          console.log(error);
+          this.loading = false;
+          this.users.push({ name: "No", surname: "users", address: "to show" });
+          console.log("res error: ", error);
         });
     },
     clearForm() {
