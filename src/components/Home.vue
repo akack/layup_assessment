@@ -118,7 +118,7 @@ export default {
         })
         .catch((error) => {
           this.loading = false;
-          this.users.push({ name: "No", surname: "users", address: "to show" });
+          this.users.push({ name: "No", surname: "users", address: "available." });
           console.log("res error: ", error);
         });
     },
