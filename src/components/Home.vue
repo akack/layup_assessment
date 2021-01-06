@@ -1,9 +1,13 @@
 <template>
   <div class="container">
-    <h5 class="header">Add New User</h5>
+    <div class="header-container">
+      <h1>Layup</h1>
+      <h5 class="header">Add New User</h5>
+      <hr/>
+    </div>
 
     <!-- Error alert  -->
-    <p class="alert alert-warning" role="alert" v-if="errorStatus">
+    <p class="alert alert-danger" role="alert" v-if="errorStatus">
       {{ errMsg }}
     </p>
 
@@ -152,6 +156,7 @@ export default {
           } else {
             this.errorStatus = false;
             this.users.push(json.data);
+            // this.fetchData();
             this.clearForm();
             this.$toasted.show(json.message, {
               theme: "outline",
@@ -191,9 +196,18 @@ export default {
   color: forestgreen;
   font-weight: bold;
   text-transform: uppercase;
+  font-size: 14px;
 }
 
 .reset {
   margin-left: 0.3em;
+}
+
+.header-container {
+  text-align: center;
+}
+
+.header-container h1 {
+  text-transform: uppercase;
 }
 </style>
